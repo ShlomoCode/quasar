@@ -52,6 +52,19 @@
       "category": "model"
     },
 
+    "error-src": {
+      "type": "String",
+      "desc": "If the image fails to load, you can use a fallback image",
+      "transformAssetUrls": true,
+      "examples": [
+        "(public folder) src=\"img/error-occurred.png\"",
+        "(assets folder) src=\"~assets/error.gif\"",
+        "(relative path format) :src=\"require('./error-occurred.jpg')\"",
+        "(URL) src=\"https://picsum.photos/500/300\""
+      ],
+      "category": "model"
+    },
+
     "ratio": {
       "desc": "Force the component to maintain an aspect ratio",
       "examples": [

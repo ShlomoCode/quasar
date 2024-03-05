@@ -49,6 +49,7 @@ export default createComponent({
     },
 
     placeholderSrc: String,
+    errorSrc: String,
 
     fit: {
       type: String,
@@ -82,7 +83,8 @@ export default createComponent({
 
     const images = [
       ref(null),
-      ref(getPlaceholderSrc())
+      ref(getPlaceholderSrc()),
+      ref(getErrorSrc())
     ]
 
     const position = ref(0)
@@ -146,6 +148,12 @@ export default createComponent({
         : null
     }
 
+    function getErrorSrc () {
+      return props.errorSrc !== void 0
+        ? { src: props.errorSrc }
+        : null
+    }
+
     function addImage (imgProps) {
       removeLoadTimeout()
       hasError.value = false
@@ -203,7 +211,7 @@ export default createComponent({
 
       hasError.value = true
       images[ position.value ].value = null
-      images[ position.value ^ 1 ].value = getPlaceholderSrc()
+      images[ position.value ^ 1 ].value = getErrorSrc()
 
       emit('error', err)
     }
@@ -248,7 +256,7 @@ export default createComponent({
         return h('div', {
           key: 'content',
           class: 'q-img__content absolute-full q-anchor--skip'
-        }, hSlot(slots[ hasError.value === true ? 'error' : 'default' ]))
+        }, hSlot(slots[ hasError.value === true && props.errorSrc === void 0 ? 'error' : 'default' ]))
       }
 
       return h('div', {
@@ -298,6 +306,9 @@ export default createComponent({
         if (images[ 1 ].value !== null) {
           content.push(getImage(1))
         }
+      }
+      else if (props.errorSrc !== void 0) {
+        content.push(getImage(2))
       }
 
       content.push(

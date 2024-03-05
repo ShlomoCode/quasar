@@ -22,6 +22,8 @@ describe('Vue Transform Asset URLs', () => {
     assertImageLoaded('#qimg-placeholder-src img')
   })
 
+  // ERROR SRC TEST
+  
   it('should apply asset transform to QParallax with src', async () => {
     cy.get('#qparallax-src img').its('src').should('be', logoAsset)
 
